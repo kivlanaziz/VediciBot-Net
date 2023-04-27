@@ -4,7 +4,7 @@ using RunMode = Discord.Commands.RunMode;
 
 namespace VediciBot_Net.Core.Modules
 {
-    public class GreetingsCommand : ModuleBase<ShardedCommandContext>
+    public class GreetingCommand : ModuleBase<ShardedCommandContext>
     {
         public CommandService CommandService { get; set; }
 
