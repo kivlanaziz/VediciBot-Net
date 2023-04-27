@@ -21,11 +21,8 @@ var client = new DiscordShardedClient(new DiscordSocketConfig
 
 var commands = new CommandService(new CommandServiceConfig
 {
-    // Again, log level:
     LogLevel = LogSeverity.Info,
 
-    // There's a few more properties you can set,
-    // for example, case-insensitive commands.
     CaseSensitiveCommands = false,
 });
 
@@ -45,7 +42,6 @@ async Task MainAsync()
     await Bootstrapper.ServiceProvider.GetRequiredService<IApplicationCommandHandler>().InitializeAsync();
 
     var appCommand = Bootstrapper.ServiceProvider.GetRequiredService<InteractionService>();
-    //await appCommand.InitializeAsync();
 
     client.ShardReady += async shard =>
     {
@@ -53,7 +49,6 @@ async Task MainAsync()
         await appCommand.RegisterCommandsGloballyAsync();
     };
 
-    // Login and connect.
     var token = config.GetRequiredSection("Settings")["DiscordBotToken"];
     if (string.IsNullOrWhiteSpace(token))
     {
@@ -64,6 +59,5 @@ async Task MainAsync()
     await client.LoginAsync(TokenType.Bot, token);
     await client.StartAsync();
 
-    // Wait infinitely so your bot actually stays connected.
     await Task.Delay(Timeout.Infinite);
 }
