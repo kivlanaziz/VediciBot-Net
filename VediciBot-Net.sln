@@ -5,7 +5,7 @@ VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VediciBot-Net.Core", "VediciBot-Net.Core\VediciBot-Net.Core.csproj", "{36A9B514-2CDC-4C24-8626-50194285791E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VediciBot-Net.Persistence", "VediciBot-Net.Persistence\VediciBot-Net.Persistence.csproj", "{022AA5A4-F762-4B90-848E-ADA5747F0545}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VediciBot-Net.Persistence", "VediciBot-Net.Persistence\VediciBot-Net.Persistence.csproj", "{022AA5A4-F762-4B90-848E-ADA5747F0545}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

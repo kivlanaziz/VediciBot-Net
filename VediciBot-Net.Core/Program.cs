@@ -40,7 +40,7 @@ async Task MainAsync()
 {
     await Bootstrapper.ServiceProvider.GetRequiredService<ICommandHandler>().InitializeAsync();
     await Bootstrapper.ServiceProvider.GetRequiredService<IApplicationCommandHandler>().InitializeAsync();
-
+    
     var appCommand = Bootstrapper.ServiceProvider.GetRequiredService<InteractionService>();
 
     client.ShardReady += async shard =>
