@@ -3,5 +3,6 @@
     public class ChannelName
     {
         public const string GENERAL = "general";
+        public const string ARRIVAL = "arrival";
     }
 }

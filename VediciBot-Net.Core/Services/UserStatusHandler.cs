@@ -25,7 +25,15 @@ namespace VediciBot_Net.Core.Services
             await Logger.Log(LogSeverity.Debug, "| Event", $"User '{arg2.Username}' Left the Server.");
 
             var channel = arg1.GetTextChannel(FindArrivalTextChannel(arg1));
-            await channel!.SendMessageAsync($"User '{arg2.Username}' Left the Server.");
+
+            EmbedBuilder embedMessage = new EmbedBuilder();
+            embedMessage.WithColor(Color.Red);
+            embedMessage.WithTitle("Departure Notification");
+            embedMessage.AddField("User: ", arg2.Username, true);
+            embedMessage.AddField("Left At: ", DateTime.Now, true);
+            embedMessage.WithFooter("Vedici Bot V2", arg1.IconUrl);
+
+            await channel!.SendMessageAsync("", false, embedMessage.Build());
         }
 
         private async Task _client_UserJoined(SocketGuildUser arg2)
@@ -33,7 +41,15 @@ namespace VediciBot_Net.Core.Services
             await Logger.Log(LogSeverity.Debug, "| Event", $"User '{arg2.Username}' Joined the Server.");
 
             var channel = arg2.Guild.GetTextChannel(FindArrivalTextChannel(arg2.Guild));
-            await channel!.SendMessageAsync($"User '{arg2.Username}' Joined the Server.");
+
+            EmbedBuilder embedMessage = new EmbedBuilder();
+            embedMessage.WithColor(Color.Blue);
+            embedMessage.WithTitle("Arrival Notification");
+            embedMessage.AddField("User: ", arg2.Username, true);
+            embedMessage.AddField("Joined At: ", DateTime.Now, true);
+            embedMessage.WithFooter("Vedici Bot V2", arg2.Guild.IconUrl);
+
+            await channel!.SendMessageAsync("", false, embedMessage.Build());
         }
 
         private static ulong FindArrivalTextChannel(SocketGuild arg)
@@ -41,7 +57,7 @@ namespace VediciBot_Net.Core.Services
             var channels = arg.TextChannels;
             foreach (SocketTextChannel channel in channels)
             {
-                if (channel.Name.Equals(ChannelName.GENERAL))
+                if (channel.Name.Equals(ChannelName.GENERAL) || channel.Name.Contains(ChannelName.ARRIVAL))
                 {
                     return channel.Id;
                 }
