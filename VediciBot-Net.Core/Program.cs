@@ -15,7 +15,7 @@ var config = new ConfigurationBuilder()
     .Build();
 var client = new DiscordShardedClient(new DiscordSocketConfig
 {
-    GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.MessageContent
+    GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.MessageContent | GatewayIntents.GuildBans | GatewayIntents.GuildMembers
 });
 
 
@@ -32,6 +32,7 @@ Bootstrapper.RegisterInstance(commands);
 Bootstrapper.RegisterInstance(new InteractionService(client));
 Bootstrapper.RegisterType<ICommandHandler, CommandHandler>();
 Bootstrapper.RegisterType<IApplicationCommandHandler, ApplicationCommandHandler>();
+Bootstrapper.RegisterType<IUserStatusHandler, UserStatusHandler>();
 Bootstrapper.RegisterInstance(config);
 
 await MainAsync();
@@ -40,7 +41,7 @@ async Task MainAsync()
 {
     await Bootstrapper.ServiceProvider.GetRequiredService<ICommandHandler>().InitializeAsync();
     await Bootstrapper.ServiceProvider.GetRequiredService<IApplicationCommandHandler>().InitializeAsync();
-    
+    await Bootstrapper.ServiceProvider.GetRequiredService<IUserStatusHandler>().InitializeAsync();
     var appCommand = Bootstrapper.ServiceProvider.GetRequiredService<InteractionService>();
 
     client.ShardReady += async shard =>
@@ -58,6 +59,6 @@ async Task MainAsync()
 
     await client.LoginAsync(TokenType.Bot, token);
     await client.StartAsync();
-
+    
     await Task.Delay(Timeout.Infinite);
 }
